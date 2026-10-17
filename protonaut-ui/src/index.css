@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #0b0f19;
+  color: #e2e8f0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Light Mode Overrides */
+html.light body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+html.light .bg-slate-900 {
+  background-color: #ffffff !important;
+}
+html.light .bg-slate-950 {
+  background-color: #f1f5f9 !important;
+}
+html.light .bg-slate-800 {
+  background-color: #f8fafc !important;
+}
+html.light .border-slate-800 {
+  border-color: #e2e8f0 !important;
+}
+html.light .text-slate-100 {
+  color: #0f172a !important;
+}
+html.light .text-slate-400 {
+  color: #64748b !important;
+}
+
+/* Code & Monospace */
+pre, code, textarea.code-font, input.code-font {
+  font-family: var(--font-mono);
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+}
+
+/* Tab button active pill */
+.tab-active {
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  border-bottom: 2px solid #6366f1;
+}

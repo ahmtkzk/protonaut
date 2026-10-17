@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package io.protonaut.example.order;
+
+option java_multiple_files = true;
+option java_package = "io.protonaut.example.order";
+option java_outer_classname = "OrderProto";
+
+// Lifecycle status of an order
+enum OrderStatus {
+  ORDER_UNSPECIFIED = 0;
+  ORDER_PENDING = 1;
+  ORDER_CONFIRMED = 2;
+  ORDER_SHIPPED = 3;
+  ORDER_DELIVERED = 4;
+  ORDER_CANCELLED = 5;
+}
+
+// Line item in a customer order
+message OrderItem {
+  string product_id = 1;
+  string product_name = 2;
+  int32 quantity = 3;
+  double unit_price = 4;
+  double total_price = 5;
+}
+
+// Order domain entity
+message Order {
+  string id = 1;
+  string order_number = 2;
+  string user_id = 3;
+  repeated OrderItem items = 4;
+  double total_amount = 5;
+  string currency = 6;
+  OrderStatus status = 7;
+  string shipping_address = 8;
+  int64 created_at = 9;
+}
+
+// Request to create a new order
+message CreateOrderRequest {
+  string user_id = 1;
+  repeated OrderItem items = 2;
+  string currency = 3;
+  string shipping_address = 4;
+}
+
+// Request to retrieve order by ID
+message GetOrderRequest {
+  string order_id = 1;
+}
+
+// Request to cancel an existing order
+message CancelOrderRequest {
+  string order_id = 1;
+  string cancellation_reason = 2;
+}
+
+// Service providing order management capabilities
+service OrderService {
+  // Create and submit a new customer order
+  rpc CreateOrder (CreateOrderRequest) returns (Order);
+
+  // Retrieve an existing order by identifier
+  rpc GetOrder (GetOrderRequest) returns (Order);
+
+  // Cancel an existing order with a reason
+  rpc CancelOrder (CancelOrderRequest) returns (Order);
+}

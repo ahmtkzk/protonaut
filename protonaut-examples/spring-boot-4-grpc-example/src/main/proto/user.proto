@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package io.protonaut.example.user;
+
+option java_multiple_files = true;
+option java_package = "io.protonaut.example.user";
+option java_outer_classname = "UserProto";
+
+// Role of the user within the platform
+enum UserRole {
+  ROLE_UNSPECIFIED = 0;
+  ROLE_ADMIN = 1;
+  ROLE_USER = 2;
+  ROLE_OPERATOR = 3;
+}
+
+// Lifecycle state of the user account
+enum UserStatus {
+  STATUS_UNSPECIFIED = 0;
+  STATUS_ACTIVE = 1;
+  STATUS_SUSPENDED = 2;
+  STATUS_DELETED = 3;
+}
+
+// Physical address representation
+message Address {
+  string street = 1;
+  string city = 2;
+  string state = 3;
+  string zip_code = 4;
+  string country = 5;
+}
+
+// Extended user profile information
+message UserProfile {
+  string bio = 1;
+  string avatar_url = 2;
+  map<string, string> preferences = 3;
+}
+
+// Core user domain entity
+message User {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string full_name = 4;
+  UserRole role = 5;
+  UserStatus status = 6;
+  Address address = 7;
+  UserProfile profile = 8;
+  repeated string tags = 9;
+  int64 created_at = 10;
+  int64 updated_at = 11;
+}
+
+// Request to retrieve a user by ID, username, or email
+message GetUserRequest {
+  oneof lookup {
+    string id = 1;
+    string username = 2;
+    string email = 3;
+  }
+}
+
+// Request to provision a new user account
+message CreateUserRequest {
+  string username = 1;
+  string email = 2;
+  string full_name = 3;
+  UserRole role = 4;
+  Address address = 5;
+  UserProfile profile = 6;
+  repeated string tags = 7;
+}
+
+// Request to update existing user attributes
+message UpdateUserRequest {
+  string id = 1;
+  string email = 2;
+  string full_name = 3;
+  UserStatus status = 4;
+  Address address = 5;
+}
+
+// Request to list users with optional filtering
+message ListUsersRequest {
+  UserRole role = 1;
+  UserStatus status = 2;
+  int32 limit = 3;
+  int32 offset = 4;
+}
+
+// Service providing comprehensive user management capabilities
+service UserService {
+  // Retrieve a user by unique identifier, username, or email address
+  rpc GetUser (GetUserRequest) returns (User);
+
+  // Register and provision a new user account
+  rpc CreateUser (CreateUserRequest) returns (User);
+
+  // Modify attributes of an existing user account
+  rpc UpdateUser (UpdateUserRequest) returns (User);
+
+  // Stream users matching the specified filter criteria
+  rpc ListUsers (ListUsersRequest) returns (stream User);
+}

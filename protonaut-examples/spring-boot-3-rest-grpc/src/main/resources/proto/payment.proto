@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package protonaut.payment;
+
+option java_multiple_files = true;
+option java_package = "io.protonaut.example.payment";
+option java_outer_classname = "PaymentProto";
+
+service PaymentService {
+  rpc ProcessPayment(PaymentRequest) returns (PaymentResponse);
+  rpc RefundPayment(RefundRequest) returns (RefundResponse);
+}
+
+service WalletService {
+  rpc GetBalance(BalanceRequest) returns (BalanceResponse);
+  rpc TransferFunds(TransferRequest) returns (TransferResponse);
+}
+
+message PaymentRequest {
+  string order_id = 1;
+  string customer_id = 2;
+  double amount = 3;
+  string currency = 4;
+}
+
+message PaymentResponse {
+  string transaction_id = 1;
+  string status = 2;
+  string message = 3;
+  int64 timestamp = 4;
+}
+
+message RefundRequest {
+  string transaction_id = 1;
+  double amount = 2;
+  string reason = 3;
+}
+
+message RefundResponse {
+  string refund_id = 1;
+  string status = 2;
+  string message = 3;
+}
+
+message BalanceRequest {
+  string customer_id = 1;
+}
+
+message BalanceResponse {
+  string customer_id = 1;
+  double available_balance = 2;
+  string currency = 3;
+}
+
+message TransferRequest {
+  string from_customer_id = 1;
+  string to_customer_id = 2;
+  double amount = 3;
+}
+
+message TransferResponse {
+  string transfer_id = 1;
+  string status = 2;
+  double remaining_balance = 3;
+}

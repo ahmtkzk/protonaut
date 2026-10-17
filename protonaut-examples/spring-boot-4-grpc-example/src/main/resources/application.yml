@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+grpc:
+  server:
+    port: 9090
+
+protonaut:
+  enabled: true
+  grpc:
+    port: 6570
+    host: "0.0.0.0"
+  rest:
+    enabled: true
+    port: 8590
+  discovery:
+    reflection-enabled: true
+  security:
+    mode: ANONYMOUS_DEV
+    allow-anonymous-local-development: true
+    mask-sensitive-values: true
+  execution:
+    enabled: true
+    max-concurrent-requests: 50
+    fail-fast-on-port-conflict: false
+  workflow:
+    execution-enabled: true
+  homepage:
+    project-name: "Protonaut Enterprise Microservices"
+    team-name: "Platform Core Team"
+    environment: "Local Development"
+    version: "1.0.0-PROD"
+    description: "Production showcase containing UserService, OrderService, and ProductService with complete unary and server streaming."

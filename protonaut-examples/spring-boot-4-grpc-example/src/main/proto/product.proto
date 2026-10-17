@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package io.protonaut.example.product;
+
+option java_multiple_files = true;
+option java_package = "io.protonaut.example.product";
+option java_outer_classname = "ProductProto";
+
+// Product domain entity
+message Product {
+  string id = 1;
+  string sku = 2;
+  string name = 3;
+  string description = 4;
+  double price = 5;
+  string currency = 6;
+  bool in_stock = 7;
+  int32 stock_quantity = 8;
+  map<string, string> attributes = 9;
+  repeated string categories = 10;
+}
+
+// Request to retrieve product by ID
+message GetProductRequest {
+  string product_id = 1;
+}
+
+// Request to list products matching search parameters
+message ListProductsRequest {
+  string category = 1;
+  bool in_stock_only = 2;
+  int32 limit = 3;
+}
+
+// Service providing catalog product querying capabilities
+service ProductService {
+  // Retrieve product details by unique product identifier
+  rpc GetProduct (GetProductRequest) returns (Product);
+
+  // Stream products matching the category and availability filters
+  rpc ListProducts (ListProductsRequest) returns (stream Product);
+}

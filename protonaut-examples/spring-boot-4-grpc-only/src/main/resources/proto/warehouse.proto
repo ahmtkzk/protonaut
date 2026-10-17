@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package protonaut.warehouse;
+
+option java_multiple_files = true;
+option java_package = "io.protonaut.example.warehouse";
+option java_outer_classname = "WarehouseProto";
+
+service InventoryService {
+  rpc CheckStock(StockCheckRequest) returns (StockCheckResponse);
+  rpc ReserveStock(ReserveStockRequest) returns (ReserveStockResponse);
+}
+
+service ShipmentService {
+  rpc TrackShipment(TrackShipmentRequest) returns (TrackShipmentResponse);
+}
+
+message StockCheckRequest {
+  string sku = 1;
+}
+
+message StockCheckResponse {
+  string sku = 1;
+  string item_name = 2;
+  int32 in_stock = 3;
+  bool is_available = 4;
+  double unit_price = 5;
+}
+
+message ReserveStockRequest {
+  string sku = 1;
+  int32 quantity = 2;
+  string order_id = 3;
+}
+
+message ReserveStockResponse {
+  string reservation_id = 1;
+  string sku = 2;
+  int32 reserved_quantity = 3;
+  string status = 4;
+}
+
+message TrackShipmentRequest {
+  string tracking_number = 1;
+}
+
+message TrackShipmentResponse {
+  string tracking_number = 1;
+  string carrier = 2;
+  string status = 3;
+  string estimated_delivery = 4;
+}

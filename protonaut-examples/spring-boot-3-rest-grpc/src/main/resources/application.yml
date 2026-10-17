@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+app:
+  grpc:
+    port: 9090
+  remote:
+    payment-grpc-host: localhost
+    payment-grpc-port: 6565
+
+protonaut:
+  enabled: true
+  grpc:
+    host: localhost
+    port: 6571
+  rest:
+    enabled: true
+    port: 8590
+  homepage:
+    project-name: "Warehouse & Logistics (Spring Boot 3 + Swagger)"
+    team-name: "Supply Chain Engineering"
+    version: "3.4.2-demo"
+    environment: "Development"
+    description: "Spring Boot 3 REST, OpenAPI/Swagger & gRPC microservice connecting to downstream Payment Service"
+  security:
+    mode: ANONYMOUS
+    allow-anonymous-local-development: true
+  execution:
+    enabled: true
+    fail-fast-on-port-conflict: false

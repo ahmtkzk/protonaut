@@ -1,0 +1,31 @@
+spring:
+  main:
+    web-application-type: none
+
+app:
+  grpc:
+    port: 6565
+  remote:
+    inventory-grpc-host: localhost
+    inventory-grpc-port: 9090
+
+protonaut:
+  enabled: true
+  grpc:
+    host: localhost
+    port: 6570
+  rest:
+    enabled: true
+    port: 8591
+  homepage:
+    project-name: "Payment & Wallet Gateway (Spring Boot 4 Pure gRPC)"
+    team-name: "Fintech Platform Services"
+    version: "4.0.8-demo"
+    environment: "Development"
+    description: "Pure gRPC microservice listening on TCP port 6565 without any HTTP servlet container"
+  security:
+    mode: ANONYMOUS
+    allow-anonymous-local-development: true
+  execution:
+    enabled: true
+    fail-fast-on-port-conflict: false
